@@ -13,7 +13,7 @@ This post will be dedicated to introducing Flex, a tokenizer, and Bison, a CFG p
 ## What is Flex
 Flex is a tokenizier, i.e. it takes an input string and breaks it into known tokens using some regex. For example, 
 
-{% highlight C %}
+{% highlight c %}
 [0-9]+       {yylval.num=atoi(yytext); return INTLIT;}
 
 [a-z]+    {yylval.str = yytext;   return VIDEN;}
@@ -29,7 +29,7 @@ Lexing is valuable because it converts a raw string into tokens: instead of manu
 ## What is Bison
 Bison parses any CFG, i.e., it takes a sequence of inputs and verifies if the sequence is valid given the rules. For example, 
 
-{% highlight C %}
+{% highlight c %}
 
 file: statement file |;
 
@@ -46,7 +46,7 @@ Like Flex, we can insert C code in braces that executes after a successful rule 
 Flex and Bison were designed to work with each other: tokens identified by a lexer written in Flex can be fed into a CFG parser written in Bison. 
 
 We declare the list of tokens and rules (along with their types) in Bison: 
-{% highlight C %}
+{% highlight c %}
 
 %token  <num> INTLIT  
 %token  <str> TYPEIDEN VIDEN 
@@ -76,7 +76,7 @@ This is where code> \<num\> </code> and <code> \<str\> </code> come from: when w
 
 The Bison file should also define <code> int main(int argc, char**argv) </code>, <code> void yyerror(char *s) </code>, and <code> int yywrap(void) </code>. Here is what I have: 
 
-{% highlgiht c %}
+{% highlight c %}
 int main(int argc, char **argv) {
 
   yyparse();
@@ -139,7 +139,7 @@ int yywrap(void) {
 
 The Flex file looks like:
 
-{% highlgiht c %}
+{% highlight c %}
 %{
     #include "parse.tab.h"
 %}
